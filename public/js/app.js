@@ -17,27 +17,34 @@ class Errors {
         this.errors = errors;
     }
     clear(field) {
-        if (field)
+        if (field) {
             delete this.errors[field];
+            return;
+        }
+
         this.errors = {};
     }
 
 }
 class Form {
     constructor(data) {
-        this.originaldata = data;
+        this.originalData = data;
         for (let field in data) {
             this[field] = data[field];
         }
-        this.errors = new Errors;
-    }
-    reset() {
-        for (let field in originaldata) {
-            this[field] = '';
-        }
+        this.errors = new Errors();
     }
     data() {
-        Object.assign({}, this);
+        let data = Object.assign({}, this);
+        delete data.originalData;
+        delete data.errors;
+        return data;
+    }
+    reset() {
+        for (let field in this.originalData) {
+            this[field] = '';
+        }
+        this.errors.clear();
     }
     /* post(url) {
         this.submit('POST', url);
@@ -50,9 +57,11 @@ class Form {
     }
     onSuccess(response) {
         alert(response.data.message);
-        this.errors.clear;
+        this.errors.clear();
+        this.reset();
     }
     onFail(error) {
+
         this.errors.record(error.response.data.errors);
     }
 }
@@ -66,13 +75,10 @@ new Vue({
     },
     methods: {
         onSubmit() {
-            this.form.submit('POST', '/projects');
+
+            this.form.submit('post', '/projects');
             //alert("submitting");
 
         },
-        onSuccess(response) {
-            alert(response.data.message);
-            form.reset();
-        }
     },
 });
