@@ -52,10 +52,13 @@ class Form {
         this.errors.clear();
     }
     post(url) {
-        this.submit('POST', url);
+        return this.submit('post', url);
+    }
+    put(url) {
+        return this.submit('put', url);
     }
     delete(url) {
-        return this.submit('DELETE', url);
+        return this.submit('delete', url);
     }
     submit(requestType, url) {
         return new Promise((resolve, reject) => {
@@ -66,7 +69,7 @@ class Form {
                 })
                 .catch(error => {
                     this.onFail(error.response.data.errors);
-                    reject(error.response.data);
+                    reject(error.response.data.errors);
                 })
 
         });
@@ -92,8 +95,8 @@ new Vue({
     },
     methods: {
         onSubmit() {
-            this.form.submit('post', '/projects')
-                .then(data => alert('Handling it'))
+            this.form.post('/projects')
+                .then(response => alert('Press to continue'))
                 .catch(errors => console.log(errors));
             //alert("submitting");
 
