@@ -1,17 +1,8 @@
-alert('app.js');
-//import Vue from 'vue';
-import axios from 'axios';
-import Form from './core/Form';
-import Example from './components/Example';
-
-window.axios = axios;
-window.Form = Form;
+//require('./bootstrap');
+import Form from '/Users/changqiu/Desktop/vue-form/resources/assets/js/core/Form.js';
 
 new Vue({
     el: "#app",
-    components: {
-        Example
-    },
     data: {
         form: new Form({
             name: "",

@@ -1,5 +1,4 @@
-import Errors from './Errors';
-
+import Errors from 'vue-form/resources/assets/js/core/Errors.js';
 class Form {
     constructor(data) {
         this.originalData = data;
