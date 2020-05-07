@@ -14,6 +14,7 @@
 
 <body>
     <div id="app" class="container">
+        <example></example>
         @include ('projects.list')
 
         <form method="POST" action="/projects" @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
